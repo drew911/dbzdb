@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
 {
-    protected $table = 'characters'; 
+    protected $fillable = ['name', 'race', 'power_level', 'description'];
+    protected $table = 'characters';
 }
