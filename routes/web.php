@@ -10,6 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'CharacterController@index');
-Route::get('/create', 'CharacterController@create');
-Route::post('/store', 'CharacterController@store');
+Route::get('/', 'CharacterController@index')->name('index');
+Route::get('/create', 'CharacterController@create')->name('create');
+Route::post('/store', 'CharacterController@store')->name('store');

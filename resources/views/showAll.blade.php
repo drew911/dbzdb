@@ -46,6 +46,7 @@
         <div class="col-sm-12">
         </div>
       </div>
+      <a href="{{ route('create') }}" class="btn btn-primary">Create</a>
 </div> <!-- /container -->
 
 
