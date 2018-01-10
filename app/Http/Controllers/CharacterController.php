@@ -38,12 +38,7 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-      $validatedData = $request->validate([
-        'name' => 'required|unique:characters|max:255',
-        'race' => 'required',
-        'power_level' => 'required|numeric|max:10000',
-        'description' => 'required'
-    ]);
+      $this->validateRequest($request);
 
       $post = $request->except('_token');
       Character::create($post);
@@ -86,12 +81,7 @@ class CharacterController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $validatedData = $request->validate([
-        'name' => 'required|unique:characters,name,'.$id .',id|max:255',
-        'race' => 'required',
-        'power_level' => 'required|numeric|max:10000',
-        'description' => 'required'
-      ]);
+      $this->validateRequest($request, $id);
       $character = Character::findOrFail($id);
       $post = $request->except('_token');
       $character->update($post);
@@ -110,4 +100,19 @@ class CharacterController extends Controller
               $id->delete();
               return redirect()->back();
         }
+
+      private function validateRequest($request, $id = NULL)
+      {
+        $rules = [
+          'name' => 'required|max:255|unique:characters',
+          'race' => 'required',
+          'power_level' => 'required|numeric|max:10000',
+          'description' => 'required'
+      ];
+
+        if ($id != NULL) {
+          $rules['name'].= ',name,'.$id .',id'; 
+        }
+        $request->validate($rules);
+      }
 }
