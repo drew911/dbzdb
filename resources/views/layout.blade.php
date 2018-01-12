@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    
     <title>DBZDB</title>
 
     <!-- Bootstrap core CSS -->
@@ -31,7 +31,7 @@
 <div class="container">
 
     @yield('content')
-    
+
 </div> <!-- /container -->
 
 

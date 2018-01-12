@@ -96,8 +96,16 @@ class CharacterController extends Controller
      */
       public function destroy($id)
       {
-              $id = Character::findOrFail($id);
-              $id->delete();
+              $character = Character::findOrFail($id);
+
+              foreach ($character->photos as $photo) {
+                if(file_exists(storage_path('app/'.$photo->file_name))){
+                    unlink(storage_path('app/'.$photo->file_name));
+                }
+                $photo->delete();
+              }
+
+              $character->delete();
               return redirect()->back();
         }
 
@@ -111,7 +119,7 @@ class CharacterController extends Controller
       ];
 
         if ($id != NULL) {
-          $rules['name'].= ',name,'.$id .',id'; 
+          $rules['name'].= ',name,'.$id .',id';
         }
         $request->validate($rules);
       }
